@@ -20,13 +20,11 @@ int main(int argc, char** argv){
 
     //before we actually perform actions, we need to load/create the user database
     initDB();
-    int x = handler(argc, argv);
+    int x = handler(argv[1], argc, argv);
     saveDB();
 }
 
-int handler(int argc, char** argv){
-    char* verb = argv[1];
-    
+int handler(char* verb, int argc, char** argv){
     // addUser
     if(strcmp(verb, "addUser") == 0){
         return addUser(argv[2], argv[3], argv[4]);
@@ -62,20 +60,21 @@ int handler(int argc, char** argv){
     if(strcmp(verb, "logout") == 0){
         //it would seem this feature isn't available in version 0.0.1-alpha of the library
         //TODO: handle
-        cookie c;
-        // c = dearmourCookie();
-        return logout(c);
+        //unsigned int token = atoi(argv[2]);
+        //int userID = logout(token);
     }
 
     // deleteUser
     if(strcmp(verb, "deleteUser") == 0){
         // again, not available in version 0.0.1-alpha
+        // return deleteUser(userID);
         return -1;
     }
 
     // verifyToken
     if(strcmp(verb, "verifyToken") == 0){
         //not available yet
+        // userID = validateToken(token);
         return -1;
     }
 

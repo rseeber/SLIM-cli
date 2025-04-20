@@ -9,7 +9,7 @@ using namespace std;
 list<login> myLogins;
 list<cookie> myCookies;
 
-int handler(int argc, char** argv);
+int handler(char* verb, int argc, char** argv);
 
 int main(int argc, char** argv){
     //not enough options
@@ -57,25 +57,28 @@ int handler(char* verb, int argc, char** argv){
     }
 
     //logout
+    //this func technically doesn't make any sense until we actually save
+    // login cookies somewhere. For now, everyone logs out on program completion
     if(strcmp(verb, "logout") == 0){
-        //it would seem this feature isn't available in version 0.0.1-alpha of the library
-        //TODO: handle
-        //unsigned int token = atoi(argv[2]);
-        //int userID = logout(token);
+        //get token from argument
+        unsigned int token = atoi(argv[2]);
+        int userID = logout(token);
     }
 
     // deleteUser
     if(strcmp(verb, "deleteUser") == 0){
-        // again, not available in version 0.0.1-alpha
-        // return deleteUser(userID);
+        //get userID from argument
+        //NOTE: atoi doesn't do error checking, need to switch to strtol() or smthn
+        int userID = atoi(argv[2]);
+        return deleteUser(userID);
         return -1;
     }
 
     // verifyToken
     if(strcmp(verb, "verifyToken") == 0){
-        //not available yet
-        // userID = validateToken(token);
-        return -1;
+        //get token from argument
+        int token = atoi(argv[2]);
+        return validateToken(token);
     }
 
     //if no key word recognized

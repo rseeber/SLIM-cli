@@ -44,6 +44,8 @@ int handler(char* verb, int argc, char** argv){
         if(strcmp(argv[2], "email") == 0){
             return editEmail(atoi(argv[3]), argv[4]);
         }
+        cout << "Error: invalid operation for 'editUser'.\n";
+        return -1;
     }
 
     // login
@@ -63,6 +65,14 @@ int handler(char* verb, int argc, char** argv){
         //get token from argument
         unsigned int token = atoi(argv[2]);
         int userID = logout(token);
+        //check if user is logged in.
+        if(userID < 0){
+            cout << "no such user logged in.\n";
+            return userID;
+        }
+        //otherwise, return the userID
+        cout << userID << endl;
+        return 0;
     }
 
     // deleteUser
@@ -71,7 +81,6 @@ int handler(char* verb, int argc, char** argv){
         //NOTE: atoi doesn't do error checking, need to switch to strtol() or smthn
         int userID = atoi(argv[2]);
         return deleteUser(userID);
-        return -1;
     }
 
     // verifyToken
@@ -79,6 +88,22 @@ int handler(char* verb, int argc, char** argv){
         //get token from argument
         int token = atoi(argv[2]);
         return validateToken(token);
+    }
+
+    //list
+    if(strcmp(verb, "list") == 0){
+        //users
+        if(strcmp(argv[2], "users") == 0){
+            printDB();
+            return 0;
+        }
+        //cookies
+        if(strcmp(argv[2], "cookies") == 0){
+            cout << getLoggedInUsers_string() << endl;
+            return 0;
+        }
+        cout << "error: invalid operation. See 'slim list' documentation for more info.\n";
+        return -1;
     }
 
     //if no key word recognized

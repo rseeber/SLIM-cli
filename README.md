@@ -36,6 +36,20 @@ after 10 minutes, and they will be logged out.
 If the cookie is unexpired, it returns the userID associated with the token. If the cookie
 is expired, or if no such token exists, returns -1. (userID's are always positive).
 
+## *findUser
+`slim findUser <byType> <identifier>`
+
+byType: `byID`, `byName`.
+
+the identifier is either the userID or the username. It prints out that user's info. Returns -1 on lookup error.
+
+# *findCookie
+`slim findCookie <byType> <identifier>`
+
+byType: `byID`, `byName`.
+
+same as `slim findUser`, except it queries for *unexpired* cookies in the cookie file. Prints the info for the cookie, not necessarily all data for the given user.
+
 ## *help
 `slim help` 
 

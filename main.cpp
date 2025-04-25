@@ -106,6 +106,71 @@ int handler(char* verb, int argc, char** argv){
         return -1;
     }
 
+    //findUser
+    if(strcmp(verb, "findUser") == 0){
+        login l;
+        int x;
+        // byName
+        if(strcmp(argv[2], "byName") == 0){
+            x = findUserByName(argv[3], &l);
+        }
+        //byID
+        else if(strcmp(verb, "byID") == 0){
+            int userID = atoi(argv[2]);
+            //this call currently broken because findUserByID() asks for a list<login>::iterator
+            //but findUserByName() asks for just a login*.
+            //Uncomment when interface is fixed.
+            
+            //x = findUserByID(userID, &l);
+
+            //work-around:
+            list<login>::iterator it;
+            x = findUserByID(userID, &it);
+            l = *it;
+        }
+        else{
+            cout << "Error: invalid operator for 'findUser'.\n";
+            return -1;
+        }
+        //if the function call returned an error, don't print
+        if(x >= 0){
+            //switch this to printUser(l, 0) when interface is made public.
+            cout << "[" << 0 << "]: " << l.user << "\t" << l.email << "\t" << l.passHash << "\t" << l.salt << endl;
+            return 0;
+        }
+        return -1;
+
+    }
+
+    //findCookie
+    if(strcmp(verb, "findCookie") == 0){
+        cookie c;
+        int x;
+        int userID;
+        //byName
+        if(strcmp(argv[2], "byName") == 0){
+            string username = argv[2];
+            //get the userID
+            login l;
+            findUserByName(username, &l);
+            userID = l.userID;
+        }
+        //byID
+        int userID = atoi(argv[2]);
+
+        list<cookie>::iterator it;
+        x = findCookieByUserID(userID, &it);
+        c = *it;
+        //if the function call returned an error, don't print
+        if(x >= 0){
+            //we need to create an interface func for printing cookies
+            cout << "[0]: " << c.userID << "\t" << c.user << "\t" << c.token << "\t" << c.expiry << endl;
+            return 0;
+        }
+        return -1;
+
+    }
+
     //if no key word recognized
     printf("%s: Invalid operator(s).\n", argv[0]);
     return -1;

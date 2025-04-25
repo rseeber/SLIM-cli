@@ -11,9 +11,7 @@ creates user with the specified login details, and adds them to the users file.
 ## editUser
 `slim editUser <option> <new value>`
 
-### username
-### password
-### email
+options: `username`, `password`, `email`
 
 ## login
 `slim login <username> <plaintext password>`

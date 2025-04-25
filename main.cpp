@@ -14,7 +14,7 @@ int handler(char* verb, int argc, char** argv);
 int main(int argc, char** argv){
     //not enough options
     if (argc <= 2){
-        printf("%s: Usage: %s <options>\n Try %s --help for more.\n", argv[0], argv[0], argv[0]);
+        printf("Usage: %s <options>\nTry %s --help for more.\n", argv[0], argv[0], argv[0]);
         return -1;
     }
 
@@ -50,11 +50,19 @@ int handler(char* verb, int argc, char** argv){
 
     // login
     if(strcmp(verb, "login") == 0){
+        initCookieDB();
         cookie c;
         int x;
         x = loginAsUser(argv[2], argv[3], &c);
         //output cookie
-        printf("%d\t%d\t%d\n", c.token, c.expiry, c.userID);
+        if(x >= 0){
+            printf("token: %d\texpiry: %d\tuserID: %d\n", c.token, c.expiry, c.userID);
+        }
+        else{
+            cout << "invalid login credentials!\n";
+        }
+        //save the updates cookies to the cookie file
+        saveCookieDB();
         return x;
     }
 
@@ -62,8 +70,9 @@ int handler(char* verb, int argc, char** argv){
     //this func technically doesn't make any sense until we actually save
     // login cookies somewhere. For now, everyone logs out on program completion
     if(strcmp(verb, "logout") == 0){
+        initCookieDB();
         //get token from argument
-        unsigned int token = atoi(argv[2]);
+        unsigned int token = atoi(argv[2]); //need to do error checking !!
         int userID = logout(token);
         //check if user is logged in.
         if(userID < 0){
@@ -72,6 +81,8 @@ int handler(char* verb, int argc, char** argv){
         }
         //otherwise, return the userID
         cout << userID << endl;
+        //save the new cookie set if changes were made
+        saveCookieDB();
         return 0;
     }
 
@@ -99,6 +110,7 @@ int handler(char* verb, int argc, char** argv){
         }
         //cookies
         if(strcmp(argv[2], "cookies") == 0){
+            initCookieDB();
             cout << getLoggedInUsers_string() << endl;
             return 0;
         }
@@ -149,15 +161,22 @@ int handler(char* verb, int argc, char** argv){
         int userID;
         //byName
         if(strcmp(argv[2], "byName") == 0){
-            string username = argv[2];
+            string username = argv[3];
             //get the userID
             login l;
             findUserByName(username, &l);
             userID = l.userID;
         }
         //byID
-        int userID = atoi(argv[2]);
+        else if(strcmp(argv[2], "byID") == 0){    
+            userID = atoi(argv[3]);
+        }
+        else{
+            cout << "Error: invalid operation for 'findCookie'.\n";
+            return -1;
+        }
 
+        //now that we have the userID in both cases, do the work
         list<cookie>::iterator it;
         x = findCookieByUserID(userID, &it);
         c = *it;

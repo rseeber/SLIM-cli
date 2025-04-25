@@ -37,6 +37,8 @@ lib/
 *.exe
 *.out
 *.app
+slim
+main
 
 # IDE
 .vscode/

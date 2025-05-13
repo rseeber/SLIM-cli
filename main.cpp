@@ -22,6 +22,8 @@ int main(int argc, char** argv){
     initDB();
     int x = handler(argv[1], argc, argv);
     saveDB();
+
+    return x;
 }
 
 int handler(char* verb, int argc, char** argv){
@@ -111,7 +113,8 @@ int handler(char* verb, int argc, char** argv){
         //cookies
         if(strcmp(argv[2], "cookies") == 0){
             initCookieDB();
-            cout << getLoggedInUsers_string() << endl;
+            printCookieDB();
+            //cout << getLoggedInUsers_string() << endl;
             return 0;
         }
         cout << "error: invalid operation. See 'slim list' documentation for more info.\n";
@@ -140,8 +143,7 @@ int handler(char* verb, int argc, char** argv){
         if(x < 0){
             return -1;
         }
-        //switch this to printUser(l, 0) when interface is made public.
-        printUser(l, 0);
+        printUser(l);
         return 0;
 
     }
@@ -156,7 +158,11 @@ int handler(char* verb, int argc, char** argv){
             string username = argv[3];
             //get the userID
             login l;
-            findUserByName(username, &l);
+            if(findUserByName(username, &l) < 0){
+                cout << "Error: couldn't find user '" << username << "' in DB.\n";
+                return -1;
+            }
+            printf("userID: %d\n", l.userID);
             userID = l.userID;
         }
         //byID
@@ -167,16 +173,16 @@ int handler(char* verb, int argc, char** argv){
             cout << "Error: invalid operation for 'findCookie'.\n";
             return -1;
         }
-
+        cout << "whattttt\n";
         //now that we have the userID in both cases, do the work
-        x = findCookieByUserID(userID, &c);
         //if the function call returned an error, don't print
-        if(x >= 0){
-            //we need to create an interface func for printing cookies
-            cout << "[0]: " << c.userID << "\t" << c.user << "\t" << c.token << "\t" << c.expiry << endl;
-            return 0;
+        if(findCookieByUserID(userID, &c) < 0){
+            return -1;
         }
-        return -1;
+        //we need to create an interface func for printing cookies
+        cout << "[0]: " << c.userID << "\t" << c.user << "\t" << c.token << "\t" << c.expiry << endl;
+        cout << "aaahhh what\n";
+        return 0;
 
     }
 

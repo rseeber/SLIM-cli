@@ -129,28 +129,20 @@ int handler(char* verb, int argc, char** argv){
         //byID
         else if(strcmp(verb, "byID") == 0){
             int userID = atoi(argv[2]);
-            //this call currently broken because findUserByID() asks for a list<login>::iterator
-            //but findUserByName() asks for just a login*.
-            //Uncomment when interface is fixed.
-            
-            //x = findUserByID(userID, &l);
-
-            //work-around:
-            list<login>::iterator it;
-            x = findUserByID(userID, &it);
-            l = *it;
+            x = findUserByID(userID, &l);
         }
+        //no other option is supported - error
         else{
             cout << "Error: invalid operator for 'findUser'.\n";
             return -1;
         }
         //if the function call returned an error, don't print
-        if(x >= 0){
-            //switch this to printUser(l, 0) when interface is made public.
-            cout << "[" << 0 << "]: " << l.user << "\t" << l.email << "\t" << l.passHash << "\t" << l.salt << endl;
-            return 0;
+        if(x < 0){
+            return -1;
         }
-        return -1;
+        //switch this to printUser(l, 0) when interface is made public.
+        printUser(l, 0);
+        return 0;
 
     }
 
@@ -177,9 +169,7 @@ int handler(char* verb, int argc, char** argv){
         }
 
         //now that we have the userID in both cases, do the work
-        list<cookie>::iterator it;
-        x = findCookieByUserID(userID, &it);
-        c = *it;
+        x = findCookieByUserID(userID, &c);
         //if the function call returned an error, don't print
         if(x >= 0){
             //we need to create an interface func for printing cookies

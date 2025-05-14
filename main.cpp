@@ -69,13 +69,18 @@ int handler(char* verb, int argc, char** argv){
     }
 
     //logout
-    //this func technically doesn't make any sense until we actually save
-    // login cookies somewhere. For now, everyone logs out on program completion
+    //logs a user with the specified username out
     if(strcmp(verb, "logout") == 0){
         initCookieDB();
-        //get token from argument
-        unsigned int token = atoi(argv[2]); //need to do error checking !!
-        int userID = logout(token);
+        // get the cookie from the username
+        login l;
+        cookie c;
+        findUserByName(argv[2], &l);
+        findCookieByUserID(l.userID, &c);
+
+        //use the cookie to find their token, then revoke the token with logout()
+        int userID = logout(c.token);
+        printf("userID: %d\n", userID);
         //check if user is logged in.
         if(userID < 0){
             cout << "no such user logged in.\n";
@@ -162,7 +167,6 @@ int handler(char* verb, int argc, char** argv){
                 cout << "Error: couldn't find user '" << username << "' in DB.\n";
                 return -1;
             }
-            printf("userID: %d\n", l.userID);
             userID = l.userID;
         }
         //byID
@@ -173,6 +177,7 @@ int handler(char* verb, int argc, char** argv){
             cout << "Error: invalid operation for 'findCookie'.\n";
             return -1;
         }
+        printf("userID: %d\n", userID);
         cout << "whattttt\n";
         //now that we have the userID in both cases, do the work
         //if the function call returned an error, don't print

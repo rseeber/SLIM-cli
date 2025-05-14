@@ -14,7 +14,7 @@ int handler(char* verb, int argc, char** argv);
 int main(int argc, char** argv){
     //not enough options
     if (argc <= 2){
-        printf("Usage: %s <options>\nTry %s --help for more.\n", argv[0], argv[0], argv[0]);
+        printf("Usage: 'slim <options>'\nTry 'slim --help' for more.\n");
         return -1;
     }
 
@@ -183,6 +183,27 @@ int handler(char* verb, int argc, char** argv){
         cout << "[0]: " << c.userID << "\t" << c.user << "\t" << c.token << "\t" << c.expiry << endl;
         cout << "aaahhh what\n";
         return 0;
+
+    }
+
+    //clear
+    if(strcmp(verb, "clear") == 0){
+        //users
+        if(strcmp(argv[2], "users") == 0){
+            //delete users file
+            system("rm data/users.txt");
+            //recall that SaveDB() is called after handler() returns.
+            // so we need to just fully exit(), or find some other workaround
+            // if this later becomes infeasible
+            exit(0);    // return 0
+        }
+
+        //cookies
+        if(strcmp(argv[2], "cookies") == 0){
+            //delete the cookies file
+            system("rm data/cookies.txt");  // dependancy on rm
+            return 0;
+        }
 
     }
 

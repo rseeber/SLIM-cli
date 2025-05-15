@@ -1,0 +1,21 @@
+Functions to use:
+
+addUser()
+edit[Passwd/Username/Email]()
+deleteUser()
+
+loginAsUser()
+logout()
+getLoggedInUsers_string()
+validateToken()
+
+printDB()
+printCookieDB()
+printUser()
+printCookie()
+
+getUsername(userID)
+findUserByName()
+findUserByID()
+
+FindCookieByUserID()

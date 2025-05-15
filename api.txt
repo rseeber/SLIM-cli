@@ -1,0 +1,11 @@
+slim <function name> [function option]
+
+examples:
+    slim addUser alice alice@math.com password123
+    slim printDB
+    slim getUsername [userID]
+
+full list of available functions is in functions.txt
+
+the cli will always output ascii. As such, wrappers have been placed around
+some of the functions so that they will print a text output, rather than a data stream.

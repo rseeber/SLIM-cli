@@ -1,7 +1,7 @@
 Functions to use:
 
 addUser()
-edit[Passwd/Username/Email]()
+edit[Passwd/Username]()
 deleteUser()
 
 loginAsUser()
@@ -15,7 +15,7 @@ printUser()
 printCookie()
 
 getUsername(userID)
-findUserByName()
-findUserByID()
+//findUserByName()
+//findUserByID()
 
-FindCookieByUserID()
+findCookieByUserID()

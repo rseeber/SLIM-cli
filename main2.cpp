@@ -1,6 +1,8 @@
 #include <iostream>
 
 #include "lib/login.hpp"
+#include "funcs.hpp"
+#include <string.h>
 
 using namespace std;
 
@@ -15,6 +17,8 @@ int main(int argc, char** argv){
      * function by using a switch case.
     */
 
-    
+    if(strcmp("addUser", argv[1]) == 0){
+        cli_addUser(argv[2], argv[3]);
+    }
 
 }

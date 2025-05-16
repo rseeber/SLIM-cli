@@ -1,39 +1,40 @@
 #include <string>
 using namespace std;
 
+
 //modify DB
-int cli_addUser(string username, string password);
+int cli_addUser(char** argv);
 
-int cli_editPasswd(string username, string newPassword);
-int cli_editUsername(string currentUsername, string newUsername);
+int cli_editPasswd(char** argv);
+int cli_editUsername(char** argv);
 
-int cli_deleteUser(string username);
+int cli_deleteUser(char** argv);
 
 //handle cookies and logged in users
-int cli_loginAsUser(string username, string password);
+int cli_loginAsUser(char** argv);
 
-int cli_logout(string username);
-int cli_logout(int token);
+int cli_logout(char** argv);
+int cli_logout(char** argv);
 
-int getLoggedInUsers(); //_string
+int cli_getLoggedInUsers(char** argv); //no input  //_string
 
-int validateToken(int token);
+int cli_validateToken(char** argv);
 
 
 //read-only funcs
-int printDB();
-int printCookieDB();
+int cli_printDB(char** argv); // no input
+int cli_printCookieDB(char** argv); //no input
 
-int printUser(int token);
-int printUser(string username);
+int cli_printUser(char** argv);
+int cli_printUser(char** argv);
 
-int printCookie(int token);
-int printCookie(string username);
-
-
-int getUsername(int userID);
-//int findUserByName();
-//int findUserByID();
+int cli_printCookie(char** argv);
+int cli_printCookie(char** argv);
 
 
-int findCookieByUserID(int userID);
+int cli_getUsername(char** argv);
+//int cli_findUserByName();
+//int cli_findUserByID();
+
+
+int cli_findCookieByUserID(char** argv);

@@ -14,21 +14,13 @@ using namespace std;
 int main(int argc, char** argv){
 
     /*
-     * We will create a number of functions which are all in one wrappers
-     * for the desired library calls. In this main() method, we will check the
-     * cli input to determine which function they want. We will call that given
-     * function by using a switch case.
-    */
-
-
-
-    /*
-     * Create an array functions[] = {"[func1]", "[func2]", ..., "[funcn]"}.
-     * Get a user inputted string called verb. Find the index s.t. 
-     * functions[i] == verb.
+     * Inside of def.hpp, we have a map that links string's to function pointers.
+     * This allows us to convert an inputted parameter (ex 'addUser') to a specific
+     * function to call dynamically.
      * 
-     * Use that i as the integer encoding for the string, or -1 on no match.
-    */
+     * In the mapped to functions, we call the library functions, as well as any necessary
+     * setup required, such as initializing the DB.
+     */
 
     string command = argv[1];
 

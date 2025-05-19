@@ -39,6 +39,7 @@ bin/
 *.out
 *.app
 slim
+slim2
 main
 
 # IDE

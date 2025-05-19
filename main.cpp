@@ -31,7 +31,7 @@ int main(int argc, char** argv){
     }
     functionPointer fp = it->second;
 
-    return fp(argv);
+    return fp(argv + 2);
 }
 
 int getIndex(const vector<string> myList, const string key){

@@ -80,6 +80,9 @@ int cli_loginAsUser(char** args){
 }
 
 int cli_logout(char** args){
+    initDB();
+    logout(args[0]);
+    saveDB();
 	return 0;
 }
 
@@ -96,10 +99,14 @@ int cli_validateToken(char** args){
 //read-only funcs
 // no input
 int cli_printDB(char** args){
-	return 0;
+    initDB();
+	printDB();
+    return 0;
 }
 //no input
 int cli_printCookieDB(char** args){
+    initCookieDB();
+    printCookieDB();
     return 0;
 }
 

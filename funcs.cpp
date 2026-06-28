@@ -57,6 +57,7 @@ int cli_editUsername(int argc, char** argv){
 // (username) self explanatory
 int cli_deleteUser(int argc, char** argv){
     initDB();
+    initCookieDB();
     login l;
     if(findUserByName(argv[0], &l) < 0){
         return -1;
@@ -64,9 +65,9 @@ int cli_deleteUser(int argc, char** argv){
     // revoke the cookie
     logout(l.user);
     // then delete their account
-    deleteUser(l.userID);
+    int flag = deleteUser(l.userID);
     saveDB();
-	return 0;
+	return flag;
 }
 
 //handle cookies and logged in users
@@ -92,8 +93,9 @@ int cli_loginAsUser(int argc, char** argv){
 
 int cli_logout(int argc, char** argv){
     initDB();
+    initCookieDB();
     logout(argv[0]);
-    saveDB();
+    saveCookieDB();
 	return 0;
 }
 

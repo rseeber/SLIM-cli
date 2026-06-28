@@ -13,8 +13,8 @@ creates user with the specified login details, and adds them to the users file.
 
 options: `username`, `password`, `email`
 
-## login
-`slim login <username> <plaintext password>`
+## loginAsUser
+`slim loginAsUser <username> <plaintext password>`
 
 attempts to log the specified user in. On success, they will have a unique cookie
 created for them and added to the cookies file. On failure, it will return an error.
@@ -30,8 +30,8 @@ after 10 minutes, and they will be logged out.
 ## deleteUser
 `slim deleteUser <userID>`
 
-## verifyToken
-`slim verifyToken <token>`
+## validateToken
+`slim validateToken <token>`
 
 If the cookie is unexpired, it returns the userID associated with the token. If the cookie
 is expired, or if no such token exists, returns -1. (userID's are always positive).

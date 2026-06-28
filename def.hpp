@@ -2,7 +2,7 @@
 #include <vector>
 
 #include "funcs.hpp"
-typedef int(*functionPointer)(char**);
+typedef int(*functionPointer)(int, char**);
 
 map<string, functionPointer> options 
 {

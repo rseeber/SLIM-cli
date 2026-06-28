@@ -26,12 +26,13 @@ int main(int argc, char** argv){
 
     auto it = options.find(command);
     if(it == options.end()){
-        //not found
+        //command not found
+        cout << "slim: error: invalid command '" << command << "'\n";
         return -1;
     }
     functionPointer fp = it->second;
 
-    return fp(argv + 2);
+    return fp(argc - 2, argv + 2);
 }
 
 int getIndex(const vector<string> myList, const string key){

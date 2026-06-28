@@ -1,0 +1,3 @@
+[submodule "SLIM"]
+	path = SLIM
+	url = https://github.com/rseeber/SLIM

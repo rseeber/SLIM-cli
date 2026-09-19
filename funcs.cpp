@@ -78,12 +78,12 @@ int cli_loginAsUser(int argc, char** argv){
     initCookieDB();
 
     cookie c;
-    if(loginAsUser(argv[0], argv[1], &c) < 0){
-        return -1;
+    if(int r = loginAsUser(argv[0], argv[1], &c) < 0){
+        return r;
     }
     //output cookie info
     //printf("token:\t%" PRIu64 "\nexpiry:\t%d\n", c.token, c.expiry);
-    cout << "token:\t" << c.token << "\nexpiry:\t" << c.expiry << endl;
+    cout << "{\n\"token\": " << c.token << ",\n\"expiry\": " << c.expiry << "\n}" << endl;
 
     //save the cookie database
     saveCookieDB();
@@ -152,6 +152,7 @@ int cli_validateToken(int argc, char** argv){
         cout << "Can't find user" << endl;
         return -1;
     }
+    cout << "{\n\"user\": \"" << l.user << "\"\n}";
 	return 0;
 }
 
